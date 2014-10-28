@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!-- This file is part product_measurements_density module for Tryton.
+The COPYRIGHT file at the top level of this repository contains the full copyright notices and license terms. -->
+<data>
+    <xpath expr="/form/notebook/page[@id=&quot;measurements&quot;]/label[@name=&quot;length&quot;]"
+            position="before">
+        <label name="measurement_code"/>
+        <field name="measurement_code" colspan="2"/>
+        <label name="shape"/>
+        <field name="shape" colspan="2"/>
+    </xpath>
+    <xpath expr="/form/notebook/page[@id=&quot;measurements&quot;]/field[@name=&quot;width_uom&quot;]"
+            position="after">
+        <label name="diameter"/>
+        <field name="diameter"/>
+        <field name="diameter_uom"/>
+        <label name="density"/>
+        <field name="density"/>
+        <group col="3" colspan="1" id="density_uom">
+            <field name="density_weight_uom"/>
+            <label string="/"/>
+            <field name="density_volume_uom"/>
+        </group>
+    </xpath>
+</data>

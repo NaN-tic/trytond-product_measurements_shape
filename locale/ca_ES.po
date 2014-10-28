@@ -1,0 +1,161 @@
+# 
+msgid ""
+msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+msgctxt "field:product.configuration,density_volume_uom:"
+msgid "Density Volume UoM"
+msgstr "UdM del volum de la densitat"
+
+msgctxt "field:product.configuration,density_weight_uom:"
+msgid "Density Weight UoM"
+msgstr "UdM del pes de la densitat"
+
+msgctxt "field:product.configuration,diameter_uom:"
+msgid "Diameter UoM"
+msgstr "UdM del diàmetre"
+
+msgctxt "field:product.configuration,height_uom:"
+msgid "Height UoM"
+msgstr "UdM de l'altura"
+
+msgctxt "field:product.configuration,length_uom:"
+msgid "Length UoM"
+msgstr "UdM de la longitud"
+
+msgctxt "field:product.configuration,measurement_code_formula:"
+msgid "Measurement Code Formula"
+msgstr "Fórmula del codi de mesures"
+
+msgctxt "field:product.configuration,shape:"
+msgid "Shape"
+msgstr "Forma"
+
+msgctxt "field:product.configuration,weight_uom:"
+msgid "Weight UoM"
+msgstr "UdM del pes"
+
+msgctxt "field:product.configuration,width_uom:"
+msgid "Width UoM"
+msgstr "UdM de l'amplada"
+
+msgctxt "field:product.template,density:"
+msgid "Density"
+msgstr "Densitat"
+
+msgctxt "field:product.template,density_digits:"
+msgid "Density Digits"
+msgstr "Decimals de la densitat"
+
+msgctxt "field:product.template,density_volume_uom:"
+msgid "Density Volume UoM"
+msgstr "UdM del volum de la densitat"
+
+msgctxt "field:product.template,density_weight_uom:"
+msgid "Density Weight UoM"
+msgstr "UdM del pes de la densitat"
+
+msgctxt "field:product.template,diameter:"
+msgid "Diameter"
+msgstr "Diàmetre"
+
+msgctxt "field:product.template,diameter_digits:"
+msgid "Diameter Digits"
+msgstr "Decimals del diàmetre"
+
+msgctxt "field:product.template,diameter_uom:"
+msgid "Diameter UoM"
+msgstr "UdM del diàmetre"
+
+msgctxt "field:product.template,measurement_code:"
+msgid "Measurement code"
+msgstr "Codi de mesures"
+
+msgctxt "field:product.template,shape:"
+msgid "Shape"
+msgstr "Forma"
+
+msgctxt "help:product.configuration,density_volume_uom:"
+msgid "Default value of the Density Volume UoM field in template form."
+msgstr ""
+"Valor per defecte del camp UdM del volum de la densitat en el formulari de "
+"la plantilla de producte."
+
+msgctxt "help:product.configuration,density_weight_uom:"
+msgid "Default value of the Density Weight UoM field in template form."
+msgstr ""
+"Valor per defecte del camp UdM del pes de la densitat en el formulari de la "
+"plantilla de producte."
+
+msgctxt "help:product.configuration,diameter_uom:"
+msgid "Default value of the Diameter UoM field in template form."
+msgstr ""
+"Valor per defecte del camp UdM del diàmetre en el formulari de la plantilla "
+"de producte."
+
+msgctxt "help:product.configuration,height_uom:"
+msgid "Default value of the Height UoM field in template form."
+msgstr ""
+"Valor per defecte del camp UdM de l'altura en el formulari de la plantilla "
+"de producte."
+
+msgctxt "help:product.configuration,length_uom:"
+msgid "Default value of the Length UoM field in template form."
+msgstr ""
+"Valor per defecte del camp UdM de la longitud en el formulari de la "
+"plantilla de producte."
+
+msgctxt "help:product.configuration,measurement_code_formula:"
+msgid ""
+"Python expression to compute the code from measurements.\n"
+"It can use the following product template fields:\n"
+"type, shape, length, length_uom, height, height_uom, width, width_uom, diameter, diameter_uom, weight, weight_uom, density, density_weight_uom, density_volume_uom"
+msgstr ""
+"Expressió Python per calcular el codi de mesures.\n"
+"Podeu utilitzar els següents camps de la plantilla de producte:\n"
+"type, shape, length, length_uom, height, height_uom, width, width_uom, diameter, diameter_uom, weight, weight_uom, density, density_weight_uom, density_volume_uom"
+
+msgctxt "help:product.configuration,shape:"
+msgid "Default value of the shape field in template form."
+msgstr ""
+"Valor per defecte del camp UdM de la forma en el formulari de la plantilla "
+"de producte."
+
+msgctxt "help:product.configuration,weight_uom:"
+msgid "Default value of the Weight UoM field in template form."
+msgstr ""
+"Valor per defecte del camp UdM del pes en el formulari de la plantilla de "
+"producte."
+
+msgctxt "help:product.configuration,width_uom:"
+msgid "Default value of the Width UoM field in template form."
+msgstr ""
+"Valor per defecte del camp UdM de l'amplada en el formulari de la plantilla "
+"de producte."
+
+msgctxt "help:product.template,shape:"
+msgid ""
+"Weight Formula for Parallelepiped = width*height*length*density\n"
+"Weight Formula for Cylinder = (diameter/2)^2*pi*length*density"
+msgstr ""
+"Fórmula del pes pel paral·lelepípede = amplada * alçada * longitud * densitat\n"
+"Fórmula del pes pel cilindre = (diàmetre/2)^2 * pi * longitud * densitat"
+
+msgctxt "selection:product.configuration,shape:"
+msgid "Cylinder"
+msgstr "Cilindre"
+
+msgctxt "selection:product.configuration,shape:"
+msgid "Parallelepiped"
+msgstr "Paral·lelepípede"
+
+msgctxt "selection:product.template,shape:"
+msgid "Cylinder"
+msgstr "Cilindre"
+
+msgctxt "selection:product.template,shape:"
+msgid "Parallelepiped"
+msgstr "Paral·lelepípede"
+
+msgctxt "view:product.template:"
+msgid "/"
+msgstr "/"
