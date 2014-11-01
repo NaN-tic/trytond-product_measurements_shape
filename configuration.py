@@ -55,17 +55,12 @@ class Configuration:
     @staticmethod
     def default_measurement_code_formula():
         return ("'' if type == 'service' else "
-            "str(length if length else '') + "
-            "str(length_uom.symbol if length_uom else '') + ' x ' + "
-            "str(height if height else '') + "
-            "str(height_uom.symbol if height_uom else '') + ' x ' + "
-            "str(width if width else '') + "
-            "str(width_uom.symbol if width_uom else '') "
-            "if shape == 'parallelepiped' else "
-            "str(length if length else '') + "
-            "str(length_uom.symbol if length_uom else '') + ' x ' + "
-            "str(diameter if diameter else '') + "
-            "str(diameter_uom.symbol if diameter_uom else '') + '∅' "
+            "(str(width)+str(width_uom.symbol) if width and width_uom else '') + ' x ' + "
+            "(str(height)+str(height_uom.symbol) if height and height_uom else '') + ' x ' + "
+            "(str(length)+str(length_uom.symbol) if length and length_uom else '') "
+            "if shape == 'parallelepiped' else '∅' + "
+            "(str(diameter)+str(diameter_uom.symbol) if diameter and diameter_uom else '') + ' x ' + "
+            "(str(length)+str(length_uom.symbol) if length and length_uom else '') "
             "if shape == 'cylinder' else ''")
 
     @classmethod
