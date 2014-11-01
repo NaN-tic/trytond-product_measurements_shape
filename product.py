@@ -13,6 +13,7 @@ __all__ = ['Template']
 __metaclass__ = PoolMeta
 
 _SHAPE = [
+    ('none', 'None'),
     ('parallelepiped', 'Parallelepiped'),
     ('cylinder', 'Cylinder'),
 ]
@@ -98,7 +99,7 @@ class Template:
         config = Config.get_singleton()
         if config:
             return config.shape
-        return 'parallelepiped'
+        return 'none'
 
     @staticmethod
     def default_length_uom():

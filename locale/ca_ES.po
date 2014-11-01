@@ -145,12 +145,21 @@ msgid "Cylinder"
 msgstr "Cilindre"
 
 msgctxt "selection:product.configuration,shape:"
+msgid "None"
+msgstr "Cap"
+
+msgctxt "selection:product.configuration,shape:"
 msgid "Parallelepiped"
 msgstr "Paral·lelepípede"
 
 msgctxt "selection:product.template,shape:"
 msgid "Cylinder"
 msgstr "Cilindre"
+
+#, fuzzy
+msgctxt "selection:product.template,shape:"
+msgid "None"
+msgstr "Cap"
 
 msgctxt "selection:product.template,shape:"
 msgid "Parallelepiped"
