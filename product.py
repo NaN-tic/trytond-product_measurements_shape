@@ -281,5 +281,5 @@ class Template:
         if name == 'name':
             code = self.measurement_code
             if code:
-                val += ' [' +   unicode(code, "utf-8") + ']'
+                val += ' [' + unicode(code, "utf-8") + ']'
         return val
