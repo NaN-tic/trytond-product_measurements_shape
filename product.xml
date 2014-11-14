@@ -23,7 +23,7 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
 
         <record model="ir.action.wizard"
             id="wizard_product_template_measurements_shape_creation">
-            <field name="name">Create/Find product with shape/measurements</field>
+            <field name="name">Create/Find product with same code and different shape/measurements</field>
             <field name="wiz_name">product.measurements_shape_creation</field>
             <field name="model">product.template</field>
         </record>
@@ -43,7 +43,7 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
 
         <record model="ir.action.wizard"
             id="wizard_product_measurements_shape_creation">
-            <field name="name">Create/Find product with shape/measurements</field>
+            <field name="name">Create/Find product with same code and different shape/measurements</field>
             <field name="wiz_name">product.measurements_shape_creation</field>
             <field name="model">product.product</field>
         </record>
