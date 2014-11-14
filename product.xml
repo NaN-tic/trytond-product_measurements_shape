@@ -13,5 +13,52 @@ The COPYRIGHT file at the top level of this repository contains the full copyrig
             <field name="inherit" ref="product.template_view_form"/>
             <field name="name">template_form</field>
         </record>
+
+        <record model="ir.ui.view"
+            id="product_measurements_shape_creation_view_form">
+            <field name="model">product.measurements_shape_creation.ask</field>
+            <field name="type">form</field>
+            <field name="name">product_measurements_shape_creation_form</field>
+        </record>
+
+        <record model="ir.action.wizard"
+            id="wizard_product_template_measurements_shape_creation">
+            <field name="name">Create/Find product with shape/measurements</field>
+            <field name="wiz_name">product.measurements_shape_creation</field>
+            <field name="model">product.template</field>
+        </record>
+        <record model="ir.action.keyword"
+            id="act_product_template_measurements_shape_creation_keyword1">
+            <field name="keyword">form_action</field>
+            <field name="model">product.template,-1</field>
+            <field name="action"
+                ref="wizard_product_template_measurements_shape_creation"/>
+        </record>
+        <record model="ir.action-res.group"
+            id="wizard_product_template_measurements_shape_creation-group_product_admin">
+            <field name="action"
+                ref="wizard_product_template_measurements_shape_creation"/>
+            <field name="group" ref="product.group_product_admin"/>
+        </record>
+
+        <record model="ir.action.wizard"
+            id="wizard_product_measurements_shape_creation">
+            <field name="name">Create/Find product with shape/measurements</field>
+            <field name="wiz_name">product.measurements_shape_creation</field>
+            <field name="model">product.product</field>
+        </record>
+        <record model="ir.action.keyword"
+            id="act_product_measurements_shape_creation_keyword1">
+            <field name="keyword">form_action</field>
+            <field name="model">product.product,-1</field>
+            <field name="action"
+                ref="wizard_product_measurements_shape_creation"/>
+        </record>
+        <record model="ir.action-res.group"
+            id="wizard_product_measurements_shape_creation-group_product_admin">
+            <field name="action"
+                ref="wizard_product_measurements_shape_creation"/>
+            <field name="group" ref="product.group_product_admin"/>
+        </record>
     </data>
 </tryton>
