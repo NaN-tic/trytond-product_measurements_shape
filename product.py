@@ -1,4 +1,4 @@
-# This file is part product_measurements_density module for Tryton.
+# This file is part product_measurements_shape module for Tryton.
 # The COPYRIGHT file at the top level of this repository contains
 # the full copyright notices and license terms.
 from trytond.model import ModelView, fields
@@ -421,7 +421,7 @@ class ProductMeasurementsShapeCreation(Wizard):
     'Product Measurements Shape Creation'
     __name__ = 'product.measurements_shape_creation'
     start = StateView('product.measurements_shape_creation.ask',
-        'product_measurements_density.product_measurements_shape_creation_view_form',
+        'product_measurements_shape.product_measurements_shape_creation_view_form',
         [
             Button('Cancel', 'end', 'tryton-cancel'),
             Button('Create/Find', 'create_', 'tryton-ok', default=True),
