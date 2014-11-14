@@ -299,7 +299,7 @@ class ProductMeasurementsShapeCreationAsk(ModelView):
     length = fields.Float('Length',
         digits=(16, Eval('length_digits', 2)),
         depends=['length_digits'])
-    length_uom = fields.Many2One('product.uom', 'Length Uom',
+    length_uom = fields.Many2One('product.uom', 'Length UoM',
         domain=[('category', '=', Id('product', 'uom_cat_length'))],
         states={
             'required': Bool(Eval('length')),
@@ -313,7 +313,7 @@ class ProductMeasurementsShapeCreationAsk(ModelView):
             'invisible': Eval('shape') == 'cylinder',
             },
         depends=['shape', 'height_digits'])
-    height_uom = fields.Many2One('product.uom', 'Height Uom',
+    height_uom = fields.Many2One('product.uom', 'Height UoM',
         domain=[('category', '=', Id('product', 'uom_cat_length'))],
         states={
             'invisible': Eval('shape') == 'cylinder',
@@ -328,7 +328,7 @@ class ProductMeasurementsShapeCreationAsk(ModelView):
             'invisible': Eval('shape') == 'cylinder',
             },
         depends=['shape', 'width_digits'])
-    width_uom = fields.Many2One('product.uom', 'Width Uom',
+    width_uom = fields.Many2One('product.uom', 'Width UoM',
         domain=[('category', '=', Id('product', 'uom_cat_length'))],
         states={
             'invisible': Eval('shape') == 'cylinder',
