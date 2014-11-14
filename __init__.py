@@ -1,4 +1,4 @@
-# This file is part product_measurements_density module for Tryton.
+# This file is part product_measurements_shape module for Tryton.
 # The COPYRIGHT file at the top level of this repository contains
 # the full copyright notices and license terms.
 from trytond.pool import Pool
@@ -11,7 +11,7 @@ def register():
         Template,
         Configuration,
         ProductMeasurementsShapeCreationAsk,
-        module='product_measurements_density', type_='model')
+        module='product_measurements_shape', type_='model')
     Pool.register(
         ProductMeasurementsShapeCreation,
-        module='product_measurements_density', type_='wizard')
+        module='product_measurements_shape', type_='wizard')

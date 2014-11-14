@@ -1,5 +1,5 @@
-Installing trytond-product_measurements_density
-===============================================
+Installing trytond-product_measurements_shape
+=============================================
 
 Prerequisites
 -------------
@@ -11,7 +11,7 @@ Prerequisites
 Installation
 ------------
 
-Once you've downloaded and unpacked the trytond_product_measurements_density
+Once you've downloaded and unpacked the trytond_product_measurements_shape
 source release, enter the directory where the archive was unpacked, and run:
 
     python setup.py install
@@ -27,4 +27,4 @@ documentation:
   http://docs.python.org/inst/inst.html
 
 To use without installation, extract the archive into ``trytond/modules`` with
-the directory name product_measurements_density.
+the directory name product_measurements_shape.
