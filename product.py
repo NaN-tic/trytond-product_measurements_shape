@@ -1,15 +1,18 @@
 # This file is part product_measurements_density module for Tryton.
 # The COPYRIGHT file at the top level of this repository contains
 # the full copyright notices and license terms.
-from trytond.model import fields
-from trytond.pyson import Eval, Bool, Id
+from trytond.model import ModelView, fields
+from trytond.wizard import Wizard, StateTransition, StateView, StateAction, \
+    Button
+from trytond.pyson import PYSONEncoder, Eval, Bool, Id
 from trytond.pool import Pool, PoolMeta
 from trytond.transaction import Transaction
 from trytond.tools import safe_eval
 from trytond.modules.product_measurements.product import NON_MEASURABLE
 from math import pi
 
-__all__ = ['Template']
+__all__ = ['Template', 'ProductMeasurementsShapeCreationAsk',
+    'ProductMeasurementsShapeCreation']
 __metaclass__ = PoolMeta
 
 _SHAPE = [
@@ -283,3 +286,260 @@ class Template:
             if code:
                 val += ' [' + unicode(code, "utf-8") + ']'
         return val
+
+
+class ProductMeasurementsShapeCreationAsk(ModelView):
+    'Product Measurements Shape Creation Ask'
+    __name__ = 'product.measurements_shape_creation.ask'
+    shape = fields.Selection(_SHAPE, 'Shape',
+        states={
+            'invisible': Eval('type').in_(NON_MEASURABLE),
+            }, depends=['type'])
+
+    length = fields.Float('Length',
+        digits=(16, Eval('length_digits', 2)),
+        depends=['length_digits'])
+    length_uom = fields.Many2One('product.uom', 'Length Uom',
+        domain=[('category', '=', Id('product', 'uom_cat_length'))],
+        states={
+            'required': Bool(Eval('length')),
+            },
+        depends=['length'])
+    length_digits = fields.Function(fields.Integer('Length Digits'),
+        'on_change_with_length_digits')
+    height = fields.Float('Height',
+        digits=(16, Eval('height_digits', 2)),
+        states={
+            'invisible': Eval('shape') == 'cylinder',
+            },
+        depends=['shape', 'height_digits'])
+    height_uom = fields.Many2One('product.uom', 'Height Uom',
+        domain=[('category', '=', Id('product', 'uom_cat_length'))],
+        states={
+            'invisible': Eval('shape') == 'cylinder',
+            'required': Bool(Eval('height')),
+            },
+        depends=['shape', 'height'])
+    height_digits = fields.Function(fields.Integer('Height Digits'),
+        'on_change_with_height_digits')
+    width = fields.Float('Width',
+        digits=(16, Eval('width_digits', 2)),
+        states={
+            'invisible': Eval('shape') == 'cylinder',
+            },
+        depends=['shape', 'width_digits'])
+    width_uom = fields.Many2One('product.uom', 'Width Uom',
+        domain=[('category', '=', Id('product', 'uom_cat_length'))],
+        states={
+            'invisible': Eval('shape') == 'cylinder',
+            'required': Bool(Eval('width')),
+            },
+        depends=['shape', 'width'])
+    width_digits = fields.Function(fields.Integer('Width Digits'),
+        'on_change_with_width_digits')
+    diameter = fields.Float('Diameter',
+        digits=(16, Eval('diameter_digits', 2)),
+        states={
+            'invisible': Eval('shape') != 'cylinder',
+            },
+        depends=['diameter_digits'])
+    diameter_uom = fields.Many2One('product.uom', 'Diameter UoM',
+        domain=[('category', '=', Id('product', 'uom_cat_length'))],
+        states={
+            'invisible': Eval('shape') != 'cylinder',
+            'required': Bool(Eval('diameter')),
+            },
+        depends=['shape', 'diameter'])
+    diameter_digits = fields.Function(fields.Integer('Diameter Digits'),
+        'on_change_with_diameter_digits')
+    density = fields.Float('Density',
+        digits=(16, Eval('density_digits', 2)),
+        depends=['density_digits'])
+    density_weight_uom = fields.Many2One('product.uom', 'Density Weight UoM',
+        domain=[('category', '=', Id('product', 'uom_cat_weight'))],
+        states={
+            'required': Bool(Eval('density')),
+            },
+        depends=['density'])
+    density_volume_uom = fields.Many2One('product.uom', 'Density Volume UoM',
+        domain=[('category', '=', Id('product', 'uom_cat_volume'))],
+        states={
+            'required': Bool(Eval('density')),
+            },
+        depends=['density'])
+    density_digits = fields.Function(fields.Integer('Density Digits'),
+        'on_change_with_density_digits')
+
+    @fields.depends('length_uom')
+    def on_change_with_length_digits(self, name=None):
+        return (self.length_uom.digits if self.length_uom
+            else self.default_length_digits())
+
+    @staticmethod
+    def default_length_digits():
+        return 2
+
+    @fields.depends('height_uom')
+    def on_change_with_height_digits(self, name=None):
+        return (self.height_uom.digits if self.height_uom
+            else self.default_height_digits())
+
+    @staticmethod
+    def default_height_digits():
+        return 2
+
+    @fields.depends('width_uom')
+    def on_change_with_width_digits(self, name=None):
+        return (self.width_uom.digits if self.width_uom
+            else self.default_width_digits())
+
+    @staticmethod
+    def default_width_digits():
+        return 2
+
+    @fields.depends('diameter_uom')
+    def on_change_with_diameter_digits(self, name=None):
+        return (self.diameter_uom.digits if self.diameter_uom
+            else self.default_diameter_digits())
+
+    @staticmethod
+    def default_diameter_digits():
+        return 2
+
+    @fields.depends('density_weight_uom', 'density_volume_uom')
+    def on_change_with_density_digits(self, name=None):
+        return (self.density_weight_uom.digits + self.density_volume_uom.digits
+            if self.density_weight_uom and self.density_volume_uom
+            else self.default_density_digits())
+
+    @staticmethod
+    def default_density_digits():
+        return 4
+
+
+class ProductMeasurementsShapeCreation(Wizard):
+    'Product Measurements Shape Creation'
+    __name__ = 'product.measurements_shape_creation'
+    start = StateView('product.measurements_shape_creation.ask',
+        'product_measurements_density.product_measurements_shape_creation_view_form',
+        [
+            Button('Cancel', 'end', 'tryton-cancel'),
+            Button('Create/Find', 'create_', 'tryton-ok', default=True),
+            ])
+    create_ = StateAction('product.act_template_form')
+
+    @classmethod
+    def __setup__(cls):
+        super(ProductMeasurementsShapeCreation, cls).__setup__()
+        cls._error_messages.update({
+                'not_unique_variant_code': ('The product "%s" is not variant '
+                    'unique or does not have a code.'),
+                })
+
+    def default_start(self, fields):
+        Config = Pool().get('product.configuration')
+        Template = Pool().get('product.template')
+        Product = Pool().get('product.product')
+
+        context = Transaction().context
+        if context['active_model'] == 'product.product':
+            product = Product(context['active_id'])
+            template = product.template
+        else:
+            template = Template(context['active_id'])
+
+        if not template.unique_variant or not template.code:
+            self.raise_user_error('not_unique_variant_code', (template.name,))
+
+        default = {}
+        config = Config.get_singleton()
+        default['shape'] = template.shape
+        default['length'] = template.length
+        default['height'] = template.height
+        default['width'] = template.width
+        default['diameter'] = template.diameter
+        default['density'] = template.density
+
+        if template.length_uom:
+            default['length_uom'] = template.length_uom.id
+        elif config and config.length_uom:
+            default['length_uom'] = config.length_uom.id
+
+        if template.height_uom:
+            default['height_uom'] = template.height_uom.id
+        elif config and config.height_uom:
+            default['height_uom'] = config.height_uom.id
+
+        if template.width_uom:
+            default['width_uom'] = template.width_uom.id
+        elif config and config.width_uom:
+            default['width_uom'] = config.width_uom.id
+
+        if template.diameter_uom:
+            default['diameter_uom'] = template.diameter_uom.id
+        elif config and config.diameter_uom:
+            default['diameter_uom'] = config.diameter_uom.id
+
+        if template.density_weight_uom:
+            default['density_weight_uom'] = template.density_weight_uom.id
+        elif config and config.density_weight_uom:
+            default['density_weight_uom'] = config.density_weight_uom.id
+
+        if template.density_volume_uom:
+            default['density_volume_uom'] = template.density_volume_uom.id
+        elif config and config.density_volume_uom:
+            default['density_volume_uom'] = config.density_volume_uom.id
+
+        return default
+
+    def do_create_(self, action):
+        Template = Pool().get('product.template')
+        Product = Pool().get('product.product')
+
+        context = Transaction().context
+        if context['active_model'] == 'product.product':
+            product = Product(context['active_id'])
+            template = product.template
+        else:
+            template = Template(context['active_id'])
+
+        templates = Template.search([
+                ('code', '=', template.code),
+                ('shape', '=', self.start.shape),
+                ('length', '=', self.start.length),
+                ('height', '=', self.start.height),
+                ('width', '=', self.start.width),
+                ('diameter', '=', self.start.diameter),
+                ('density', '=', self.start.density),
+                ('length_uom', '=', self.start.length_uom),
+                ('height_uom', '=', self.start.height_uom),
+                ('width_uom', '=', self.start.width_uom),
+                ('diameter_uom', '=', self.start.diameter_uom),
+                ('density_weight_uom', '=', self.start.density_weight_uom),
+                ('density_volume_uom', '=', self.start.density_volume_uom),
+                ], limit=1)
+        if not templates:
+            new_template, = Template.copy([template], {
+                    'shape': self.start.shape,
+                    'length': self.start.length,
+                    'height': self.start.height,
+                    'width': self.start.width,
+                    'diameter': self.start.diameter,
+                    'density': self.start.density,
+                    'length_uom': self.start.length_uom,
+                    'height_uom': self.start.height_uom,
+                    'width_uom': self.start.width_uom,
+                    'diameter_uom': self.start.diameter_uom,
+                    'density_weight_uom': self.start.density_weight_uom,
+                    'density_volume_uom': self.start.density_volume_uom,
+                    })
+        else:
+            new_template, = templates
+
+        action['pyson_context'] = PYSONEncoder().encode({
+                'product': new_template.id,
+                })
+        action['pyson_search_value'] = PYSONEncoder().encode([
+                ('id', '=', new_template.id),
+                ])
+        return action, {}

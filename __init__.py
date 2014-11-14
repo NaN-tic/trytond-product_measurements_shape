@@ -10,4 +10,8 @@ def register():
     Pool.register(
         Template,
         Configuration,
+        ProductMeasurementsShapeCreationAsk,
         module='product_measurements_density', type_='model')
+    Pool.register(
+        ProductMeasurementsShapeCreation,
+        module='product_measurements_density', type_='wizard')

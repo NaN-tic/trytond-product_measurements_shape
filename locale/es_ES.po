@@ -2,6 +2,18 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
+msgctxt "error:product.configuration:"
+msgid ""
+"Invalid formula\n"
+"%(formula)s\n"
+"\n"
+"%(error)s"
+msgstr "Fórmula no válida."
+
+msgctxt "error:product.measurements_shape_creation:"
+msgid "The product \"%s\" is not variant unique or does not have a code."
+msgstr "El producto \"%s\" no es mono variante o no tiene un código."
+
 msgctxt "field:product.configuration,density_volume_uom:"
 msgid "Density Volume UoM"
 msgstr "UdM del volumen de la densidad"
@@ -36,7 +48,80 @@ msgstr "UdM del peso"
 
 msgctxt "field:product.configuration,width_uom:"
 msgid "Width UoM"
-msgstr "UdM de la anchura"
+msgstr "UdM del ancho"
+
+msgctxt "field:product.measurements_shape_creation.ask,density:"
+msgid "Density"
+msgstr "Densidad"
+
+msgctxt "field:product.measurements_shape_creation.ask,density_digits:"
+msgid "Density Digits"
+msgstr "Decimales de la densidad"
+
+msgctxt "field:product.measurements_shape_creation.ask,density_volume_uom:"
+msgid "Density Volume UoM"
+msgstr "UdM del volumen de la densidad"
+
+msgctxt "field:product.measurements_shape_creation.ask,density_weight_uom:"
+msgid "Density Weight UoM"
+msgstr "UdM del peso de la densidad"
+
+msgctxt "field:product.measurements_shape_creation.ask,diameter:"
+msgid "Diameter"
+msgstr "Diámetro"
+
+msgctxt "field:product.measurements_shape_creation.ask,diameter_digits:"
+msgid "Diameter Digits"
+msgstr "Decimales del diámetro"
+
+msgctxt "field:product.measurements_shape_creation.ask,diameter_uom:"
+msgid "Diameter UoM"
+msgstr "UdM del diámetro"
+
+msgctxt "field:product.measurements_shape_creation.ask,height:"
+msgid "Height"
+msgstr "Altura"
+
+msgctxt "field:product.measurements_shape_creation.ask,height_digits:"
+msgid "Height Digits"
+msgstr "Decimales de la altura"
+
+msgctxt "field:product.measurements_shape_creation.ask,height_uom:"
+msgid "Height Uom"
+msgstr "UdM de la altura"
+
+msgctxt "field:product.measurements_shape_creation.ask,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:product.measurements_shape_creation.ask,length:"
+msgid "Length"
+msgstr "Longitud"
+
+msgctxt "field:product.measurements_shape_creation.ask,length_digits:"
+msgid "Length Digits"
+msgstr "Decimales de la longitud"
+
+msgctxt "field:product.measurements_shape_creation.ask,length_uom:"
+msgid "Length Uom"
+msgstr "UdM de la longitud"
+
+msgctxt "field:product.measurements_shape_creation.ask,shape:"
+msgid "Shape"
+msgstr "Forma"
+
+msgctxt "field:product.measurements_shape_creation.ask,width:"
+msgid "Width"
+msgstr "Ancho"
+
+msgctxt "field:product.measurements_shape_creation.ask,width_digits:"
+msgid "Width Digits"
+msgstr "Decimales del ancho"
+
+#, fuzzy
+msgctxt "field:product.measurements_shape_creation.ask,width_uom:"
+msgid "Width Uom"
+msgstr "UdM del ancho"
 
 msgctxt "field:product.template,density:"
 msgid "Density"
@@ -140,6 +225,19 @@ msgstr ""
 "Fórmula del peso para el paralelepípedo = anchura * altura * longitud * densidad\n"
 "Fórmula del peso para el cilindro = (diámetro/2)^2 * pi * longitud * densidad"
 
+msgctxt "model:ir.action,name:wizard_product_measurements_shape_creation"
+msgid "Create/Find product with shape/measurements"
+msgstr "Crear/Buscar producto con forma/medidas"
+
+msgctxt ""
+"model:ir.action,name:wizard_product_template_measurements_shape_creation"
+msgid "Create/Find product with shape/measurements"
+msgstr "Crear/Buscar producto con forma/medidas"
+
+msgctxt "model:product.measurements_shape_creation.ask,name:"
+msgid "Product Measurements Shape Creation Ask"
+msgstr "Pregunta creación producto con forma/medidas"
+
 msgctxt "selection:product.configuration,shape:"
 msgid "Cylinder"
 msgstr "Cilindro"
@@ -149,6 +247,18 @@ msgid "None"
 msgstr "Ninguna"
 
 msgctxt "selection:product.configuration,shape:"
+msgid "Parallelepiped"
+msgstr "Paralelepípedo"
+
+msgctxt "selection:product.measurements_shape_creation.ask,shape:"
+msgid "Cylinder"
+msgstr "Cilindro"
+
+msgctxt "selection:product.measurements_shape_creation.ask,shape:"
+msgid "None"
+msgstr "Ninguna"
+
+msgctxt "selection:product.measurements_shape_creation.ask,shape:"
 msgid "Parallelepiped"
 msgstr "Paralelepípedo"
 
@@ -163,7 +273,23 @@ msgstr "Ninguna"
 msgctxt "selection:product.template,shape:"
 msgid "Parallelepiped"
 msgstr "Paralelepípedo"
+
+msgctxt "view:product.measurements_shape_creation.ask:"
+msgid "/"
+msgstr "/"
+
+msgctxt "view:product.measurements_shape_creation.ask:"
+msgid "Create/Find product with shape/measurements"
+msgstr "Crear/Buscar producto con forma/medidas"
 
 msgctxt "view:product.template:"
 msgid "/"
 msgstr "/"
+
+msgctxt "wizard_button:product.measurements_shape_creation,start,create_:"
+msgid "Create/Find"
+msgstr "Crear/Buscar"
+
+msgctxt "wizard_button:product.measurements_shape_creation,start,end:"
+msgid "Cancel"
+msgstr "Cancelar"
