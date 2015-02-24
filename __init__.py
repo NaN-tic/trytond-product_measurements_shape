@@ -8,8 +8,8 @@ from .configuration import *
 
 def register():
     Pool.register(
-        Template,
         Configuration,
+        Template,
         ProductMeasurementsShapeCreationAsk,
         module='product_measurements_shape', type_='model')
     Pool.register(
