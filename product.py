@@ -7,9 +7,9 @@ from trytond.wizard import Wizard, StateTransition, StateView, StateAction, \
 from trytond.pyson import PYSONEncoder, Eval, Bool, Id
 from trytond.pool import Pool, PoolMeta
 from trytond.transaction import Transaction
-from trytond.tools import safe_eval
 from trytond.modules.product_measurements.product import NON_MEASURABLE
 from math import pi
+from simpleeval import simple_eval
 
 __all__ = ['Template', 'ProductMeasurementsShapeCreationAsk',
     'ProductMeasurementsShapeCreation']
@@ -265,7 +265,7 @@ class Template:
         Evaluates the formula to compute measurement code with the context data
         '''
         context = Transaction().context.copy()
-        return safe_eval(formula, context)
+        return simple_eval(formula, context)
 
     @fields.depends('type', *_MEASUREMENT_FIELDS)
     def on_change_with_measurement_code(self, name=None):
