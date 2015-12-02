@@ -16,7 +16,7 @@ __all__ = ['Template', 'ProductMeasurementsShapeCreationAsk',
 __metaclass__ = PoolMeta
 
 _SHAPE = [
-    ('none', 'None'),
+    (None, 'None'),
     ('parallelepiped', 'Parallelepiped'),
     ('cylinder', 'Cylinder'),
 ]
