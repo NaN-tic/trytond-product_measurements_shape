@@ -291,11 +291,7 @@ class Template:
 class ProductMeasurementsShapeCreationAsk(ModelView):
     'Product Measurements Shape Creation Ask'
     __name__ = 'product.measurements_shape_creation.ask'
-    shape = fields.Selection(_SHAPE, 'Shape',
-        states={
-            'invisible': Eval('type').in_(NON_MEASURABLE),
-            }, depends=['type'])
-
+    shape = fields.Selection(_SHAPE, 'Shape')
     length = fields.Float('Length',
         digits=(16, Eval('length_digits', 2)),
         depends=['length_digits'])
