@@ -97,14 +97,6 @@ class Template:
                 })
 
     @staticmethod
-    def default_shape():
-        Config = Pool().get('product.configuration')
-        config = Config.get_singleton()
-        if config:
-            return config.shape
-        return 'none'
-
-    @staticmethod
     def default_length_uom():
         Config = Pool().get('product.configuration')
         config = Config.get_singleton()
