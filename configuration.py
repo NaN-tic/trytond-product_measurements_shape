@@ -54,14 +54,13 @@ class Configuration:
 
     @staticmethod
     def default_measurement_code_formula():
-        return ("'' if type == 'service' else "
-            "(str(width)+str(width_uom.symbol) if width and width_uom else '') + ' x ' + "
-            "(str(height)+str(height_uom.symbol) if height and height_uom else '') + ' x ' + "
-            "(str(length)+str(length_uom.symbol) if length and length_uom else '') "
-            "if shape == 'parallelepiped' else '∅' + "
-            "(str(diameter)+str(diameter_uom.symbol) if diameter and diameter_uom else '') + ' x ' + "
-            "(str(length)+str(length_uom.symbol) if length and length_uom else '') "
-            "if shape == 'cylinder' else ''")
+        return ("'' if self.type == 'service' else "
+            "(str(self.width)+str(self.width_uom.symbol) if self.width and self.width_uom else '') + ' x ' + "
+            "(str(self.height)+str(self.height_uom.symbol) if self.height and self.height_uom else '') + ' x ' + "
+            "(str(self.length)+str(self.length_uom.symbol) if self.length and self.length_uom else '') "
+            "if self.shape == 'parallelepiped' else '∅' + (str(self.diameter)+str(self.diameter_uom.symbol) "
+            "if self.diameter and self.diameter_uom else '') + ' x ' + (str(self.length)+str(self.length_uom.symbol) "
+            "if self.length and self.length_uom else '') if self.shape == 'cylinder' else ''")
 
     @classmethod
     def validate(cls, configurations):
@@ -70,9 +69,7 @@ class Configuration:
             configuration.check_formula()
 
     def check_formula(self):
-        '''
-        Check formula
-        '''
+        'Check formula'
         pool = Pool()
         ModelData = pool.get('ir.model.data')
         Uom = pool.get('product.uom')
@@ -82,6 +79,8 @@ class Configuration:
         kilogram = Uom(ModelData.get_id('product', 'uom_kilogram'))
         liter = Uom(ModelData.get_id('product', 'uom_liter'))
         formula = self.measurement_code_formula
+        if not formula:
+            return
 
         product = Template()
         product.type = 'goods'
