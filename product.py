@@ -194,7 +194,7 @@ class Template:
                     self.density * self.density_weight_uom.factor * 1000 /
                     (self.weight_uom.factor * self.density_volume_uom.factor))
                 weight = round(weight, self.weight_digits)
-        return weight
+        return weight if weight else self.weight
 
     @fields.depends(*_MEASUREMENT_FIELDS)
     def on_change_with_density(self, name=None):
