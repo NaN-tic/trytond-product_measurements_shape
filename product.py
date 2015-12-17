@@ -9,7 +9,6 @@ from trytond.pool import Pool, PoolMeta
 from trytond.transaction import Transaction
 from trytond.modules.product_measurements.product import NON_MEASURABLE
 from math import pi
-from simpleeval import simple_eval
 
 __all__ = ['Template', 'ProductMeasurementsShapeCreationAsk',
     'ProductMeasurementsShapeCreation']
@@ -253,17 +252,16 @@ class Template:
         }
 
     def get_measurement_code(self, formula):
-        '''
-        Evaluates the formula to compute measurement code with the context data
-        '''
-        context = Transaction().context.copy()
-        return simple_eval(formula, context)
+        'Evaluates the formula to compute measurement code'
+        if not formula:
+            return
+        return eval(formula)
 
     @fields.depends('type', *_MEASUREMENT_FIELDS)
     def on_change_with_measurement_code(self, name=None):
         code = None
         Config = Pool().get('product.configuration')
-        config = Config.get_singleton()
+        config = Config(1)
         if config and config.measurement_code_formula:
             with Transaction().set_context(
                     self._get_context_measurement_code()):
