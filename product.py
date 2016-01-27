@@ -2,8 +2,7 @@
 # The COPYRIGHT file at the top level of this repository contains
 # the full copyright notices and license terms.
 from trytond.model import ModelView, fields
-from trytond.wizard import Wizard, StateTransition, StateView, StateAction, \
-    Button
+from trytond.wizard import Wizard, StateView, StateAction, Button
 from trytond.pyson import PYSONEncoder, Eval, Bool, Id
 from trytond.pool import Pool, PoolMeta
 from trytond.transaction import Transaction
@@ -171,33 +170,34 @@ class Template:
         UoM with factor one: Kilogram, Meter, Liter
         Conversion between Density UoM: kg/m^3 = 1000 * kg/l
         '''
-        weight = None
-        if self.shape == 'parallelepiped':
-            if (self.density_weight_uom and self.density_volume_uom and
-                    self.density and self.weight_uom and
-                    self.length and self.length_uom and
-                    self.height and self.height_uom and
-                    self.width and self.width_uom):
-                weight = (self.length * self.length_uom.factor *
-                    self.height * self.height_uom.factor *
-                    self.width * self.width_uom.factor *
-                    self.density * self.density_weight_uom.factor * 1000 /
-                    (self.weight_uom.factor * self.density_volume_uom.factor))
-                weight = round(weight, self.weight_digits)
-        elif self.shape == 'cylinder':
-            if (self.density_weight_uom and self.density_volume_uom and
-                    self.density and self.weight_uom and
-                    self.length and self.length_uom and
-                    self.diameter and self.diameter_uom):
-                radius = self.diameter * self.diameter_uom.factor / 2.0
-                weight = (pi * radius * radius *
-                    self.length * self.length_uom.factor *
-                    self.density * self.density_weight_uom.factor * 1000 /
-                    (self.weight_uom.factor * self.density_volume_uom.factor))
-                weight = round(weight, self.weight_digits)
+        weight = self.weight
+        if not weight:
+            if self.shape == 'parallelepiped':
+                if (self.density_weight_uom and self.density_volume_uom and
+                        self.density and self.weight_uom and
+                        self.length and self.length_uom and
+                        self.height and self.height_uom and
+                        self.width and self.width_uom):
+                    weight = (self.length * self.length_uom.factor *
+                        self.height * self.height_uom.factor *
+                        self.width * self.width_uom.factor *
+                        self.density * self.density_weight_uom.factor * 1000 /
+                        (self.weight_uom.factor * self.density_volume_uom.factor))
+                    weight = round(weight, self.weight_digits)
+            elif self.shape == 'cylinder':
+                if (self.density_weight_uom and self.density_volume_uom and
+                        self.density and self.weight_uom and
+                        self.length and self.length_uom and
+                        self.diameter and self.diameter_uom):
+                    radius = self.diameter * self.diameter_uom.factor / 2.0
+                    weight = (pi * radius * radius *
+                        self.length * self.length_uom.factor *
+                        self.density * self.density_weight_uom.factor * 1000 /
+                        (self.weight_uom.factor * self.density_volume_uom.factor))
+                    weight = round(weight, self.weight_digits)
         return weight
 
-    @fields.depends(*_MEASUREMENT_FIELDS)
+    @fields.depends('density_digits', *_MEASUREMENT_FIELDS)
     def on_change_with_density(self, name=None):
         '''
         The density is automatically computed from the measurements and weight.
@@ -205,29 +205,32 @@ class Template:
         Conversion between Density UoM: kg/m^3 = 1000 * kg/l
         '''
         density = self.density
-        if self.shape == 'parallelepiped':
-            if (self.density_weight_uom and self.density_volume_uom and
-                    self.weight and self.weight_uom and
-                    self.length and self.length_uom and
-                    self.height and self.height_uom and
-                    self.width and self.width_uom):
-                density = (self.weight * self.weight_uom.factor *
-                    self.density_volume_uom.factor / (
-                    self.length * self.length_uom.factor *
-                    self.height * self.height_uom.factor *
-                    self.width * self.width_uom.factor *
-                    self.density_weight_uom.factor * 1000))
-        elif self.shape == 'cylinder':
-            if (self.density_weight_uom and self.density_volume_uom and
-                    self.weight and self.weight_uom and
-                    self.length and self.length_uom and
-                    self.diameter and self.diameter_uom):
-                radius = self.diameter * self.diameter_uom.factor / 2.0
-                density = (self.weight * self.weight_uom.factor *
-                    self.density_volume_uom.factor /
-                    (pi * radius * radius *
-                    self.length * self.length_uom.factor *
-                    self.density_weight_uom.factor * 1000))
+        if not density:
+            if self.shape == 'parallelepiped':
+                if (self.density_weight_uom and self.density_volume_uom and
+                        self.weight and self.weight_uom and
+                        self.length and self.length_uom and
+                        self.height and self.height_uom and
+                        self.width and self.width_uom):
+                    density = (self.weight * self.weight_uom.factor *
+                        self.density_volume_uom.factor / (
+                        self.length * self.length_uom.factor *
+                        self.height * self.height_uom.factor *
+                        self.width * self.width_uom.factor *
+                        self.density_weight_uom.factor * 1000))
+                    density = round(density, self.density_digits)
+            elif self.shape == 'cylinder':
+                if (self.density_weight_uom and self.density_volume_uom and
+                        self.weight and self.weight_uom and
+                        self.length and self.length_uom and
+                        self.diameter and self.diameter_uom):
+                    radius = self.diameter * self.diameter_uom.factor / 2.0
+                    density = (self.weight * self.weight_uom.factor *
+                        self.density_volume_uom.factor /
+                        (pi * radius * radius *
+                        self.length * self.length_uom.factor *
+                        self.density_weight_uom.factor * 1000))
+                    density = round(density, self.density_digits)
         return density
 
     def _get_context_measurement_code(self):
