@@ -9,10 +9,10 @@ from trytond.transaction import Transaction
 from product import _SHAPE
 
 __all__ = ['Configuration']
-__metaclass__ = PoolMeta
 
 
 class Configuration:
+    __metaclass__ = PoolMeta
     __name__ = 'product.configuration'
     shape = fields.Selection(_SHAPE, 'Shape',
         help='Default value of the shape field in template form.')

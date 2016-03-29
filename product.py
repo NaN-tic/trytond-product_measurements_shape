@@ -11,7 +11,6 @@ from math import pi
 
 __all__ = ['Template', 'ProductMeasurementsShapeCreationAsk',
     'ProductMeasurementsShapeCreation']
-__metaclass__ = PoolMeta
 
 _SHAPE = [
     (None, 'None'),
@@ -25,6 +24,7 @@ _MEASUREMENT_FIELDS = ['shape', 'length', 'length_uom', 'height', 'height_uom',
 
 
 class Template:
+    __metaclass__ = PoolMeta
     __name__ = 'product.template'
     shape = fields.Selection(_SHAPE, 'Shape', select=True,
         help="Weight Formula for Parallelepiped = width*height*length*density"
